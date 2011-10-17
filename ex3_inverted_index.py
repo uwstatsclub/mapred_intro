@@ -12,7 +12,8 @@ def mapper(key, value):
 
 def reducer(key, values):
   # use this reducer to calculate indegrees, rather than list all.
-  yield (key, sum(1 for value in values))
+  values = list(values)
+  yield (key, len(values))
 
 if __name__ == "__main__":
   # Entry point to the program.

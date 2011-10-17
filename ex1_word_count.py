@@ -13,7 +13,16 @@ def mapper(key, value):
 def reducer(key, values):
   yield (key, sum(values))
 
+def bigram_mapper(key, values):
+  prev_word = None
+  for word in values.split():
+    if prev_word is not None:
+      yield ((prev_word, word), 1)
+    prev_word = word
+
 if __name__ == "__main__":
   # Entry point to the program.
   import dumbo
-  dumbo.run(mapper, reducer)
+  # dumbo.run(mapper, reducer)
+  # run this to get bigram count, instead of word (unigram) count.
+  dumbo.run(bigram_mapper, reducer)
